@@ -9,7 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" >
     <link rel="stylesheet" href="/css/main.css">
 
-    <title>Classic Shop</title>
+    <title>{{title}}</title>
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark" style="background:#02534A;">
@@ -37,14 +37,21 @@
     <div class="container">
         <h1 class="mt-4">Product List</h1>
         <div class="row">
-            <div class="card" style="width: 18rem;">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
+            {{#if hasProduct}}
+                {{#each prod}}
+                    <div class="card m-4" style="width: 18rem;">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbXCpiYKfm11YUjU715AE4xto0XO6fzBiL8Q&usqp=CAU" class="card-img-top" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title">{{this.Name}}</h5>
+                        <a href="#" class="btn" style="background: crimson; color:white">Add to Cart</a>
+                        </div>
+                    </div>
+                {{/each}}
+            {{else}}
+                <h3>No product to show</h3>
+            {{/if}}
+            
+
         </div>
     </div>
 

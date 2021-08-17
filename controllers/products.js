@@ -17,7 +17,8 @@ exports.postAddProduct = (req,res,next)=>{
 
 exports.getProduct = (req,res,next)=>{
     // res.sendFile(path.join(__dirname, '../','views','shop.html'));
-    const products = Products.fetchAll()
-    res.render('shop', {prod:products, cls_home:'active',title:"Classic Shop"})
+    Products.fetchAll((products)=>{
+        res.render('shop', {prod:products, cls_home:'active',title:"Classic Shop"})
+    })
 }
 

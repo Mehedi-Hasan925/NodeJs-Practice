@@ -1,9 +1,8 @@
-// const products = [];
 const Products = require('../models/products')
 
 exports.getAddProduct = (req,res,next)=>{
     // res.sendFile(path.join(__dirname, '../','views','add_product.html'));
-    res.render('add_product',{cls:'active',title:"Add Product"})
+    res.render('admin/add_product',{address:'admin/add-product',title:"Add Product"})
 }
 
 exports.postAddProduct = (req,res,next)=>{
@@ -14,11 +13,6 @@ exports.postAddProduct = (req,res,next)=>{
     res.redirect('/')
 }
 
-
-exports.getProduct = (req,res,next)=>{
-    // res.sendFile(path.join(__dirname, '../','views','shop.html'));
-    Products.fetchAll((products)=>{
-        res.render('shop', {prod:products, cls_home:'active',title:"Classic Shop"})
-    })
+exports.adminProduct = (req,res,next)=>{
+    res.render('admin/products-admin',{title:'admin products'})
 }
-

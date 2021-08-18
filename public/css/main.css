@@ -1,16 +1,17 @@
-/* nav{
+nav{
     font-family: sans-serif;
 }
 
-.active{
+/* .active{
     color: crimson !important;
-}
+} */
 
 .nav-link{
     font-size: 18px;
+    font-weight: 600 !important;
 }
 
 .navbar-brand{
     font-size: 25px !important;
-    font-weight: 500 !important;
-} */
+    font-weight: 600 !important;
+}

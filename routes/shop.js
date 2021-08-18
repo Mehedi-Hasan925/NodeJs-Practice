@@ -5,8 +5,11 @@ const router = express.Router()
 // app.set('view engine','pug');
 // app.set('views',__dirname,'../views');
 
-const getProductController = require('../controllers/products')
+const shopController = require('../controllers/shop')
 
-router.get("/",getProductController.getProduct);
+router.get("/",shopController.getProduct);
+router.get("/cart",shopController.cartProduct);
+router.get("/products",shopController.shopProducts);
+router.get("/checkput",shopController.shopProducts);
 
 module.exports = router;

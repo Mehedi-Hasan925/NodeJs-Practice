@@ -8,11 +8,14 @@ exports.getAddProduct = (req,res,next)=>{
 exports.postAddProduct = (req,res,next)=>{
 //    console.log(req.body.ProductName);
     // products.push({Name : req.body.ProductName});
-    const Product =new Products(req.body.ProductName)
+    const Product =new Products(req.body.ProductName,req.body.imageUrl,req.body.price,req.body.description)
     Product.save();
     res.redirect('/')
 }
 
 exports.adminProduct = (req,res,next)=>{
-    res.render('admin/products-admin',{title:'admin products'})
+    Products.fetchAll((products)=>{
+        res.render('admin/products-admin', {prod:products, address:'/', title:"Classic Shop"})
+    })
+    
 }

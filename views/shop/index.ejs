@@ -2,10 +2,26 @@
 
 <%- include('../layouts/navigation.ejs') %>
 
-
-
-    <div class="container m-5 p-3">
-        <h3>page not found</h3>
+    <div class="container">
+        <h1 class="mt-4">Product List</h1>
+        <div class="row">
+            <% if(prod.length>0) { %>
+                <% for(let product of prod) { %>
+                    <div class="card m-4" style="width: 18rem;">
+                        <img src="<%= product.imageUrl %>" class="card-img-top" style="height: 200px;" alt="...">
+                        <div class="card-body">
+                        <h5 class="card-title"><%= product.Name %></h5>
+                        <h5 class="card-title"> Price: <%= product.price %>/-</h5>
+                        <p class="card-text"><%= product.description %></p>
+                        <a href="#" class="btn" style="background: crimson; color:white">Add to Cart</a>
+                        </div>
+                    </div>
+                <% } %>
+            <% } else { %>
+                <h3>No products to show</h3>
+            <% } %>
+        </div>
     </div>
 
-    <%- include('../layouts/end.ejs') %>
+
+<%- include('../layouts/end.ejs') %>

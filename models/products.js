@@ -13,8 +13,11 @@ const getProductsFromFile = (renProduct) => {
 }
 
 module.exports = class products {
-    constructor(title) {
-        this.Name = title;
+    constructor(productName,imageUrl,price,description) {
+        this.Name = productName;
+        this.imageUrl = imageUrl;
+        this.price = price;
+        this.description = description;
     }
 
     save() {

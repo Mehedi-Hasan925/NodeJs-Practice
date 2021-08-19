@@ -22,6 +22,7 @@ module.exports = class products {
 
     save() {
             // let Products = [];
+            this.id = Math.random().toString();
             getProductsFromFile((Products) => {
                 Products.push(this);
                 fs.writeFile(Path, JSON.stringify(Products), (err) => { // JSON.stringify() convert js array or object into JSON format
@@ -32,5 +33,12 @@ module.exports = class products {
 
     static fetchAll(renProduct) {
         getProductsFromFile(renProduct)
+    }
+
+    static fetchById(id,cb){
+        getProductsFromFile((products)=>{
+            const product = products.find(p=>p.id===id);
+            cb(product);
+        })
     }
 }

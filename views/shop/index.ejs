@@ -1,27 +1,39 @@
 <%- include('../layouts/head.ejs') %>
 
-<%- include('../layouts/navigation.ejs') %>
+    <%- include('../layouts/navigation.ejs') %>
 
-    <div class="container">
-        <h1 class="mt-4">Product List</h1>
-        <div class="row">
-            <% if(prod.length>0) { %>
-                <% for(let product of prod) { %>
-                    <div class="card m-4" style="width: 18rem;">
-                        <img src="<%= product.imageUrl %>" class="card-img-top" style="height: 200px;" alt="...">
-                        <div class="card-body">
-                        <h5 class="card-title"><%= product.Name %></h5>
-                        <h5 class="card-title"> Price: <%= product.price %>/-</h5>
-                        <p class="card-text"><%= product.description %></p>
-                        <a href="#" class="btn" style="background: crimson; color:white">Add to Cart</a>
+        <div class="container">
+            <h1 class="mt-4">Product List</h1>
+            <div class="row">
+                <% if(prod.length>0) { %>
+                    <% for(let product of prod) { %>
+                        <div class="card m-4" style="width: 18rem;">
+                            <img src="<%= product.imageUrl %>" class="card-img-top" style="height: 200px;" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <%= product.Name %>
+                                </h5>
+                                <h5 class="card-title"> Price: <%= product.price %>/-</h5>
+                                <p class="card-text">
+                                    <%= product.description %>
+                                </p>
+                                <div class="" style="display:flex">
+                                    <a href="/product-details/<%= product.id %>" class="btn" style="background: rgb(79, 68, 241); color:white; margin-right: 10px;">Details</a>
+                                    <form action="/cart" method="POST">
+                                        <button href="#" class="btn" style="background: crimson; color:white">Add to
+                                            Cart</button>
+                                        <input type="hidden" name="productId" value="<% product.id %>" id="">
+                                    </form>
+                                </div>
+
+                            </div>
                         </div>
-                    </div>
-                <% } %>
-            <% } else { %>
-                <h3>No products to show</h3>
-            <% } %>
+                        <% } %>
+                            <% } else { %>
+                                <h3>No products to show</h3>
+                                <% } %>
+            </div>
         </div>
-    </div>
 
 
-<%- include('../layouts/end.ejs') %>
+        <%- include('../layouts/end.ejs') %>

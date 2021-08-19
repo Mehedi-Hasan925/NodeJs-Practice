@@ -13,8 +13,12 @@
                         <h5 class="card-title"><%= product.Name %></h5>
                         <h5 class="card-title"> Price: <%= product.price %>/-</h5>
                         <p class="card-text"><%= product.description %></p>
-                        <a href="#" class="btn m-2" style="background: crimson; color:white">Delete</a>
-                        <a href="#" class="btn btn-primary">Update</a>
+                        <div class="" style="display: flex;">
+                            <a href="/admin/edit-product" class="btn btn-primary" style="height: 38px;">Edit</a>
+                            <form action="/admin/delete-product" method="POST" class="">
+                                <button  class="btn" style="background: crimson; color:white; margin-left: 20px;">Delete</button>
+                            </form>
+                        </div>
                         </div>
                     </div>
                 <% } %>

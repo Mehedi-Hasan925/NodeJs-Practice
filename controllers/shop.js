@@ -15,7 +15,7 @@ exports.getIndex = (req,res,next)=>{
     })
 }
 
-exports.cartProduct = (req,res,next)=>{
+exports.getCart = (req,res,next)=>{
     res.render('shop/cart',{title:'Cart'})
 }
 
@@ -23,6 +23,21 @@ exports.cartProduct = (req,res,next)=>{
 exports.checkoutProducts = (req,res,next)=>{
     res.render('shop/checkout',{title:'Checkout'})
 }
+
+exports.getOrders = (req,res,next)=>{
+    res.render('shop/orders',{title:'orders'})
+}
+
+
+exports.getProductDetails = (req,res,next)=>{
+    const prodId = req.params.productId;
+    Products.fetchById(prodId,(product)=>{
+        console.log(product);
+        res.render('shop/product-detail',{product:product,title:"Product Details"});
+    })
+}
+
+
 
 
 

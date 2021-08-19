@@ -1,11 +1,33 @@
 <%- include('../layouts/head.ejs') %>
+    <%- include('../layouts/navigation.ejs') %>
 
-<%- include('../layouts/navigation.ejs') %>
+        <div class="container m-5 p-3">
+            <div class="row">
+                <div class="col-md-8">
+                    <img src="<%= product.imageUrl %>" class="img-fluid" alt="" />
+                </div>
+                <div class="col-md-4">
+                    <div class="card m-4 border-0" style="width: 18rem">
+                        <div class="card-body">
+                            <h2 class="card-title">
+                                <%= product.Name %>
+                            </h2>
+                            <h5 class="card-title">Price: <%= product.price %>/-</h5>
+                            <p class="card-text">
+                                <%= product.description %>
+                            </p>
+                            <div class="text-center" style="display: flex">
+                                <form action="/cart" method="POST">
+                                    <button href="#" class="btn" style="background: crimson; color: white">
+                                        Add to Cart
+                                    </button>
+                                    <input type="hidden" name="productId" value="<%= product.id %>">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-
-
-    <div class="container m-5 p-3">
-        <h3>page not found</h3>
-    </div>
-
-    <%- include('../layouts/end.ejs') %>
+        <%- include('../layouts/end.ejs') %>

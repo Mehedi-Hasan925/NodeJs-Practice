@@ -2,7 +2,7 @@ const Products = require('../models/products')
 
 exports.getAddProduct = (req,res,next)=>{
     // res.sendFile(path.join(__dirname, '../','views','add_product.html'));
-    res.render('admin/add_product',{address:'admin/add-product',title:"Add Product"})
+    res.render('admin/edit-product',{address:'admin/add-product',title:"Add Product",editing:false})
 }
 
 exports.postAddProduct = (req,res,next)=>{
@@ -15,7 +15,31 @@ exports.postAddProduct = (req,res,next)=>{
 
 exports.adminProduct = (req,res,next)=>{
     Products.fetchAll((products)=>{
-        res.render('admin/products-admin', {prod:products, address:'/', title:"Classic Shop"})
+        res.render('admin/products-admin', {prod:products, path:'admin/products-admin', title:"Classic Shop"})
     })
     
+}
+
+exports.getEditProduct = (req,res,next)=>{
+    // const editMode = req.query.edit;
+    const editMode = true;
+    // if(!editMode){
+    //     res.redirect('/')
+    // }
+    const prodId = req.params.productId;
+    Products.fetchById(prodId,(product)=>{
+        res.render('admin/edit-product',{address:'admin/add-product',path:'admin/edit-product',title:"Edit Product",product:product,editing:editMode})
+    })
+}
+
+exports.postEditProduct = (req,res,next)=>{
+    // const editMode = req.query.edit;
+    const editMode = true;
+    // if(!editMode){
+    //     res.redirect('/')
+    // }
+    const prodId = req.params.productId;
+    Products.fetchById(prodId,(product)=>{
+        res.render('admin/edit-product',{address:'admin/add-product',title:"Edit Product",product:product,editing:editMode})
+    })
 }

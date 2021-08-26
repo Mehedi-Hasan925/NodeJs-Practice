@@ -2,10 +2,35 @@
 
 <%- include('../layouts/navigation.ejs') %>
 
-
-
-    <div class="container m-5 p-3">
-        <h3>This is cart</h3>
+    <div class="row mt-5 p-3 text-center">
+      <% if(products.length>0) {%>
+        <% for(let prod of products) {%>
+            <div class="card mb-1" style="max-width: 740px;">
+                <div class="row g-0">
+                  <div class="col-md-4">
+                    <img src="<%=product.imageUrl%>" class="img-fluid rounded-start" alt="<%=product.Name%>">
+                  </div>
+                  <div class="col-md-8">
+                    <div class="card-body">
+                      <h5 class="card-title"><%=prod.product.Name%></h5>
+                      <h5 class="card-text">Price: <%=prod.product.price%>/-</h5>
+                      <h6 class="card-text"> Quantity: <%=prod.qty%> </h6>
+                      <a href="/remove-cart-item/<%=prod.product.id%>" class="btn btn-danger">Delete</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+        <%} %>
+    <%} else{%>
+        <h3>No product in cart</h3>
+      <%}%>
+      <div class="card text-center">
+        <h2>Total Price: <%=totalPrice%></h2>
     </div>
+    </div>
+
+    
+
+    
 
     <%- include('../layouts/end.ejs') %>

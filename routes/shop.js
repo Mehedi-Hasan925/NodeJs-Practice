@@ -14,5 +14,6 @@ router.get("/products",shopController.getProduct);
 router.get("/product-details/:productId",shopController.getProductDetails);
 router.get("/checkout",shopController.checkoutProducts);
 router.get("/orders",shopController.getOrders);
+router.get("/remove-cart-item/:productId",shopController.removeCartitem);
 
 module.exports = router;

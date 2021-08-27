@@ -7,38 +7,57 @@ exports.getAddProduct = (req,res,next)=>{
 }
 
 exports.postAddProduct = (req,res,next)=>{
-    const tittle = req.body.ProductName
+    const title = req.body.ProductName
     const price = req.body.price
     const description = req.body.description
     const imageUrl = req.body.imageUrl
-    const Product =new Products(null,tittle,imageUrl,price,description)
-    Product.save()
-        .then(()=>{
 
-        })
-        .catch((err)=>{
-            console.log(err);
-        });
-    res.redirect('/')
+    Products.create({
+        title:title,
+        price:price,
+        description:description,
+        imageUrl:imageUrl
+    })
+    .then(()=>{
+        res.redirect('/admin/products')
+    })
+    .catch((err)=>{
+        console.log(err);
+    })
+    // const Product =new Products(null,tittle,imageUrl,price,description)
+
+    // Product.save()
+    //     .then(()=>{
+
+    //     })
+    //     .catch((err)=>{
+    //         console.log(err);
+    //     });
+    // res.redirect('/')
 }
 
 exports.adminProduct = (req,res,next)=>{
-    Products.fetchAll()
-        .then(([rows,fieldData])=>{
-            res.render('admin/products-admin', {prod:rows, path:'admin/products-admin', title:"Classic Shop"})
+    Products.findAll()
+        .then((products)=>{
+            res.render('admin/products-admin', {prod:products, path:'admin/products-admin', title:"Classic Shop"})
         })
-        .catch((err)=>{
-            console.log(err);
-        })
+        .catch()
+    // Products.fetchAll()
+    //     .then(([rows,fieldData])=>{
+    //         res.render('admin/products-admin', {prod:rows, path:'admin/products-admin', title:"Classic Shop"})
+    //     })
+    //     .catch((err)=>{
+    //         console.log(err);
+    //     })
 }
 
 exports.getEditProduct = (req,res,next)=>{
     // const editMode = req.query.edit;
     const editMode = true;
     const prodId = req.params.productId;
-    Products.fetchById(prodId)
-        .then(([product])=>{
-            res.render('admin/edit-product',{address:'admin/add-product',path:'admin/edit-product',title:"Edit Product",product:product[0],editing:editMode})
+    Products.findByPk(prodId)
+        .then((product)=>{
+            res.render('admin/edit-product',{address:'admin/add-product',path:'admin/edit-product',title:"Edit Product",product:product,editing:editMode})
         })
         .catch((err)=>{
             console.log(err);
@@ -47,14 +66,28 @@ exports.getEditProduct = (req,res,next)=>{
 
 exports.postEditProduct = (req,res,next)=>{
     const prodId = req.body.productId;
-    const prodName = req.body.ProductName;
+    const title = req.body.ProductName;
     const imageUrl = req.body.imageUrl;
     const price = req.body.price;
     const description = req.body.description;
-   
+
+    Products.findOne({WHERE:{id:prodId}})
+        .then((product)=>{
+            product.update({title:title,price:price,description:description,imageUrl:imageUrl})
+                .then(result=>{
+                    console.log(result);
+                    res.redirect('/admin/products');
+                })
+                .catch(err=>{
+                    console.log(err);
+                })
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
     const updatedProduct = new Products(prodId,prodName,imageUrl,price,description)
     updatedProduct.save();
-    res.redirect('/admin/products');
+    
 }
 
 

@@ -71,33 +71,39 @@ exports.postEditProduct = (req,res,next)=>{
     const price = req.body.price;
     const description = req.body.description;
 
-    Products.findOne({WHERE:{id:prodId}})
+    Products.findByPk(prodId)
         .then((product)=>{
-            product.update({title:title,price:price,description:description,imageUrl:imageUrl})
-                .then(result=>{
-                    console.log(result);
-                    res.redirect('/admin/products');
-                })
-                .catch(err=>{
-                    console.log(err);
-                })
+            product.title = title;
+            product.price = price;
+            product.description = description;
+            product.imageUrl = imageUrl;
+            return product.save()
         })
+            .then(result=>{
+                res.redirect('/admin/products')
+            })
+            .catch(err=>{
+                console.log(err);
+            })
         .catch((err)=>{
             console.log(err);
         })
-    const updatedProduct = new Products(prodId,prodName,imageUrl,price,description)
-    updatedProduct.save();
-    
 }
 
 
 exports.deleteProduct = (req,res,next)=>{
     const prodId = req.body.productId;
 
-    Products.deleteByid(prodId)
-        .then(()=>{
-            res.redirect('/admin/products');
+    Products.findByPk(prodId)
+        .then((product)=>{
+            return product.destroy()
         })
+            .then(()=>{
+                res.redirect('/admin/products');
+            })
+            .catch(err=>{
+                console.log(err);
+            })
         .catch((err)=>{
             console.log(err);
         })

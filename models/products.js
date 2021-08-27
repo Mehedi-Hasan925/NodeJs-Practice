@@ -14,18 +14,18 @@ module.exports = class products {
     }
 
     save() {
-        return db.execute('INSERT INTO products(title,price,description,imageUrl) VALUES (?,?,?,?)'),[this.Name, this.price,this.description,this.imageUrl] 
+        return db.execute('INSERT INTO products(title,price,description,imageUrl) VALUES (?,?,?,?)',[this.Name, this.price,this.description,this.imageUrl])
     }
 
     static fetchAll(renProduct) {
         return db.execute('SELECT * FROM products')
     }
 
-    static fetchById(id,cb){
-       
+    static fetchById(id){
+       return db.execute('SELECT * FROM products WHERE products.id=?',[id])
     }
 
     static deleteByid(id){
-        
+        return db.execute('DELETE FROM products WHERE products.id=?',[id])
     }
 }

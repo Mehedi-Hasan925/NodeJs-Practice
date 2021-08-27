@@ -68,9 +68,13 @@ exports.getOrders = (req,res,next)=>{
 
 exports.getProductDetails = (req,res,next)=>{
     const prodId = req.params.productId;
-    Products.fetchById(prodId,(product)=>{
-        res.render('shop/product-detail',{product:product, path:'/product-details',title:"Product Details"});
-    })
+    Products.fetchById(prodId)
+        .then(([product,fieldData])=>{
+            res.render('shop/product-detail',{product:product[0], path:'/product-details',title:"Product Details"});
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
 }
 
 

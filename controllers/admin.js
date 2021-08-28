@@ -1,4 +1,5 @@
 const Products = require('../models/products');
+const express = require('express');
 
 
 exports.getAddProduct = (req,res,next)=>{
@@ -11,12 +12,13 @@ exports.postAddProduct = (req,res,next)=>{
     const price = req.body.price
     const description = req.body.description
     const imageUrl = req.body.imageUrl
-
+    console.log(req.user);
     Products.create({
         title:title,
         price:price,
         description:description,
-        imageUrl:imageUrl
+        imageUrl:imageUrl,
+        // UserId:req.user.id
     })
     .then(()=>{
         res.redirect('/admin/products')
@@ -77,6 +79,7 @@ exports.postEditProduct = (req,res,next)=>{
             product.price = price;
             product.description = description;
             product.imageUrl = imageUrl;
+            
             return product.save()
         })
             .then(result=>{

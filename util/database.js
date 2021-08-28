@@ -1,8 +1,8 @@
 // const mysql = require('mysql2')
 
-const Sequalize = require('sequelize')
+const Sequelize = require('sequelize').Sequelize;
 
-const sequalize = new Sequalize('node-practice','root','',{dialect:'mysql',host:'localhost'});
+const sequalize = new Sequelize('node-practice','root','',{dialect:'mysql',host:'localhost'});
 
 module.exports = sequalize;
 

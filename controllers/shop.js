@@ -13,6 +13,7 @@ exports.getProduct = (req,res,next)=>{
 
 exports.getIndex = (req,res,next)=>{
     // res.sendFile(path.join(__dirname, '../','views','shop.html'));
+    console.log(req.user);
     Products.findAll()
         .then((products)=>{
             res.render('shop/index', {prod:products, path:'/products', title:"Classic Shop"})

@@ -69,20 +69,14 @@ exports.postEditProduct = (req,res,next)=>{
 }
 
 
-// exports.deleteProduct = (req,res,next)=>{
-//     const prodId = req.body.productId;
+exports.deleteProduct = (req,res,next)=>{
+    const prodId = req.body.productId;
 
-//     Products.findByPk(prodId)
-//         .then((product)=>{
-//             return product.destroy()
-//         })
-//             .then(()=>{
-//                 res.redirect('/admin/products');
-//             })
-//             .catch(err=>{
-//                 console.log(err);
-//             })
-//         .catch((err)=>{
-//             console.log(err);
-//         })
-// }
+    Products.deleteById(prodId)
+    .then(()=>{
+        res.redirect('/')
+    })
+    .catch(err=>{
+        console.log(err);
+    })
+}

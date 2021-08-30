@@ -4,11 +4,11 @@ const http = require('http');
 
 const path = require('path')
 const express = require('express');
-const sequalizeConnection = require('./util/database')
+const mongoConnect = require('./util/database').mongoConnect;
 
 //models
-const ProductsTable = require('./models/products');
-const UserTable = require('./models/User');
+// const ProductsTable = require('./models/products');
+// const UserTable = require('./models/User');
 
 
 // const bodyParser = require('body-parser');
@@ -28,38 +28,10 @@ const errorController = require('./controllers/error');
 app.use(express.urlencoded({extended:false}));
 app.use('/admin',adminRoutes);
 app.use(shopRoutes);
-app.use((req,res,next)=>{
-    UserTable.findByPk(1)
-        .then((user)=>{
-            req.user = user;
-            console.log(req.user.id);
-            next()
-        })
-        .catch(err=>{
-            console.log(err);
-        })
-})
 
 app.use(errorController.get404)
 
 
-ProductsTable.belongsTo(UserTable,{constraints:true,onDelete:'CASCADE'})
-UserTable.hasMany(ProductsTable)
-
-sequalizeConnection.sync()
-    .then(()=>{
-        return UserTable.findByPk(1)
-        
-    })
-        .then((user)=>{
-            if(!user){
-               return UserTable.create({Name:'Mehedi',email:'mehedi.cse14bu@gmail.com'});
-            }
-            return user
-        })
-            .then(()=>{
-                app.listen(3000);
-            })
-            .catch(err=>{
-                console.log(err);
-            })
+mongoConnect(()=>{
+    app.listen(3000);
+})
